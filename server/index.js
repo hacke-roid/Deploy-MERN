@@ -3,24 +3,31 @@ const app = express();
 const port = 5500;
 const cors = require("cors");
 const mongoose = require("mongoose");
-const DataModel = require('./Model/data.js')
+const DataModel = require("./Model/data.js");
 
-app.use(cors());
+app.use(
+  cors({
+    origin: ["https://deploy-mern-browser.vercel.app"],
+    methods: ["GET", "POST"],
+    credentials: true,
+  })
+);
 app.use(express.json());
 
-mongoose.connect(
-  "mongodb://127.0.0.1:27017/datastore",
-  { useNewUrlParser: true, useUnifiedTopology: true },
-).then(()=>{
+mongoose
+  .connect(
+    "mongodb+srv://kishanurankar:kishan@2872001@cluster0.qqlsq.mongodb.net/datastore?retryWrites=true&w=majority&appName=Cluster0"
+  )
+  .then(() => {
     console.log("Connected to MongoDB");
-})
+  });
 
 app.post("/", (req, res) => {
   console.log(req.body);
   res.send(req.body);
-  DataModel.create(req.body).then((data)=>{
+  DataModel.create(req.body).then((data) => {
     res.json(data);
-  })
+  });
 });
 
 app.listen(port, (err) => {
