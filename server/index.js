@@ -7,7 +7,7 @@ const DataModel = require("./Model/data.js");
 
 app.use(
   cors({
-    origin: ["https://deploy-mern-browser.vercel.app"],
+    origin: ["http://localhost:3000", "https://deploy-mern-browser.vercel.app"],
     methods: ["GET", "POST"],
     credentials: true,
   })
@@ -27,7 +27,9 @@ app.post("/", (req, res) => {
   res.send(req.body);
   DataModel.create(req.body).then((data) => {
     res.json(data);
-  });
+  }).catch((err) => {
+    res.status(500).json({ error: err.message }); // Handle errors
+  })
 });
 
 app.listen(port, (err) => {

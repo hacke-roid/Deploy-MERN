@@ -19,7 +19,12 @@ const Main = () => {
     axios.post('http://localhost:5500', {
         username: username,
         password: password,
-    })
+    }) .then((response) => {
+        console.log("Success:", response.data);
+      })
+      .catch((error) => {
+        console.error("Error:", error.response || error.message);
+      });
   }
 
   const { username, password } = textData;
