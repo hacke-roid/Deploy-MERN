@@ -7,9 +7,8 @@ const DataModel = require("./Model/data.js");
 
 app.use(
   cors({
-    origin: ["http://localhost:3000", "https://deploy-mern-browser.vercel.app"],
+    origin: "*",
     methods: ["GET", "POST"],
-    credentials: true,
   })
 );
 app.use(express.json());
