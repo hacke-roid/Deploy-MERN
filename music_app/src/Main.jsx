@@ -13,19 +13,25 @@ const Main = () => {
     setTextData({ ...textData, [name]: value });
   };
 
-  const handleSubmit = (e)=> {
+  const handleSubmit = (e) => {
     e.preventDefault();
     console.log(textData);
-    axios.post('http://localhost:5500', {
-        username: username,
-        password: password,
-    }) .then((response) => {
+    axios
+      .post(
+        "http://localhost:5500",
+        {
+          username,
+          password,
+        },
+        { withCredentials: true }
+      )
+      .then((response) => {
         console.log("Success:", response.data);
       })
       .catch((error) => {
         console.error("Error:", error.response || error.message);
       });
-  }
+  };
 
   const { username, password } = textData;
 
@@ -34,7 +40,7 @@ const Main = () => {
       <section>
         <h1>Register Page</h1>
         <div>
-          <form onSubmit={handleSubmit}> 
+          <form onSubmit={handleSubmit}>
             <label>Username</label>
             <br />
             <input
