@@ -15,7 +15,7 @@ app.use(express.json());
 
 mongoose
   .connect(
-    "mongodb+srv://kishanurankar:kishan@2872001@cluster0.qqlsq.mongodb.net/datastore?retryWrites=true&w=majority&appName=Cluster0"
+    "mongodb+srv://kishanurankar:kishanurankar@cluster0.qqlsq.mongodb.net/dummydatabase?retryWrites=true&w=majority&appName=Cluster0"
   )
   .then(() => {
     console.log("Connected to MongoDB");
@@ -24,11 +24,13 @@ mongoose
 app.post("/", (req, res) => {
   console.log(req.body);
   res.send(req.body);
-  DataModel.create(req.body).then((data) => {
-    res.json(data);
-  }).catch((err) => {
-    res.status(500).json({ error: err.message }); // Handle errors
-  })
+  DataModel.create(req.body)
+    .then((data) => {
+      res.json(data);
+    })
+    .catch((err) => {
+      res.status(500).json({ error: err.message }); // Handle errors
+    });
 });
 
 app.listen(port, (err) => {
